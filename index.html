@@ -1,106 +1,54 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>中午吃什么？转盘选择器</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>抓小猪游戏 💕</title>
-
-<style>
+    <style>
         * {
-        body {
-margin: 0;
+            margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            padding: 20px;
-            background: linear-gradient(135deg, #87CEEB, #98FB98);
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-}
+        }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-        .game-container {
-            position: relative;
-            width: 800px;
-            height: 600px;
-            margin: 0 auto;
-            background: linear-gradient(to bottom, #87CEEB 0%, #90EE90 100%);
-            border: 3px solid #8B4513;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-        }
-
-        .game-info {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-display: flex;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 15px;
             color: white;
             overflow-x: hidden;
-            justify-content: space-between;
-            z-index: 100;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-}
+        }
 
         .container {
             text-align: center;
             max-width: 350px;
             width: 100%;
-        .pig {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-            transition: transform 0.1s;
-            z-index: 10;
-}
+        }
 
         h1 {
             font-size: 1.8rem;
             margin-bottom: 8px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        .pig:hover {
-            transform: scale(1.1);
-}
+        }
 
         .subtitle {
             font-size: 0.9rem;
             opacity: 0.9;
             margin-bottom: 25px;
-        .pig::before {
-            content: '🐷';
-            font-size: 50px;
-            display: block;
-            text-align: center;
-            line-height: 60px;
-}
+        }
 
         .wheel-container {
             position: relative;
             width: 280px;
             height: 280px;
             margin: 0 auto 25px;
-        .pig::after {
-            content: '💖';
-            font-size: 20px;
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            animation: sparkle 2s infinite;
-}
+        }
 
         .wheel {
             width: 100%;
@@ -112,17 +60,10 @@ display: flex;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             transition: transform 3s cubic-bezier(0.23, 1, 0.32, 1);
             will-change: transform;
-        .pig::before {
-            content: '🐷';
-            font-size: 50px;
-            display: block;
-            text-align: center;
-            line-height: 60px;
-}
+        }
 
         .wheel-section {
-        .net {
-position: absolute;
+            position: absolute;
             width: 50%;
             height: 50%;
             transform-origin: 100% 100%;
@@ -133,19 +74,7 @@ position: absolute;
             font-weight: bold;
             color: white;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            width: 80px;
-            height: 80px;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .net::before {
-            content: '🕸️';
-            font-size: 70px;
-            display: block;
-text-align: center;
+            text-align: center;
             padding: 8px 4px;
             line-height: 1.2;
             word-break: break-all;
@@ -179,8 +108,7 @@ text-align: center;
             border-top: 24px solid #FFD700;
             z-index: 10;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-            line-height: 80px;
-}
+        }
 
         .spin-button {
             background: linear-gradient(45deg, #FF6B6B, #FF8E53);
@@ -198,60 +126,27 @@ text-align: center;
             -webkit-appearance: none;
             appearance: none;
             outline: none;
-        .net.active {
-            opacity: 1;
         }
-
-        .caught-pig {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            z-index: 20;
-            animation: caught 1s ease-in-out forwards;
-}
 
         .spin-button:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        .caught-pig::before {
-            content: '🐷';
-            font-size: 50px;
-            display: block;
-            text-align: center;
-            line-height: 60px;
-}
+        }
 
         .spin-button:active {
             transform: translateY(0);
-        @keyframes caught {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(180deg); }
-            100% { transform: scale(0) rotate(360deg); opacity: 0; }
-}
+        }
 
         .spin-button:disabled {
             background: #cccccc;
             cursor: not-allowed;
             transform: none;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-}
+        }
 
         .result {
             font-size: 1.2rem;
-        .love-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #FFB6C1, #FFC0CB, #FF69B4);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 20px;
-            font-size: 18px;
-font-weight: bold;
+            font-weight: bold;
             background: rgba(255,255,255,0.1);
             padding: 12px 20px;
             border-radius: 18px;
@@ -263,63 +158,28 @@ font-weight: bold;
             justify-content: center;
             margin-top: 10px;
             word-break: break-word;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
-            z-index: 150;
-            opacity: 0;
-            animation: loveMessageShow 3s ease-in-out forwards;
-            max-width: 300px;
-            border: 3px solid #FF1493;
         }
-
-        .love-message::before {
-            content: '🌸 ';
-            font-size: 20px;
-            margin-right: 8px;
-}
 
         .result.show {
             animation: bounce 0.6s ease;
-        .love-message::after {
-            content: ' 🌸';
-            font-size: 20px;
-            margin-left: 8px;
-}
+        }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {
                 transform: translateY(0);
-        @keyframes loveMessageShow {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5) translateY(20px);
-}
+            }
             40% {
                 transform: translateY(-8px);
-            20% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.1) translateY(-10px);
-}
+            }
             60% {
                 transform: translateY(-4px);
-            80% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1) translateY(0px);
             }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8) translateY(-20px);
-}
-}
+        }
 
         .food-emoji {
             font-size: 1.4em;
             margin-right: 6px;
-        .controls {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #333;
-}
+        }
 
         /* 移动端特殊优化 */
         @media (max-width: 400px) {
@@ -327,104 +187,34 @@ font-weight: bold;
                 width: 250px;
                 height: 250px;
             }
-        .start-btn, .restart-btn {
-            background: linear-gradient(135deg, #FF69B4, #FF1493);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
-        }
 
             h1 {
                 font-size: 1.6rem;
             }
-        .start-btn:hover, .restart-btn:hover {
-            background: linear-gradient(135deg, #FF1493, #DC143C);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
-        }
 
             .wheel-section {
                 font-size: 10px;
                 padding: 6px 3px;
             }
-        .game-over {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            z-index: 200;
-            text-align: center;
-            display: none;
-        }
 
             .spin-button {
                 padding: 12px 24px;
                 font-size: 0.95rem;
             }
-        .clouds {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-}
+        }
 
         @media (max-width: 320px) {
             .wheel-container {
                 width: 220px;
                 height: 220px;
             }
-        .cloud {
-            position: absolute;
-            background: white;
-            border-radius: 50px;
-            opacity: 0.7;
-            animation: float 20s infinite linear;
-        }
 
             .wheel-section {
                 font-size: 9px;
                 padding: 5px 2px;
             }
-        .cloud1 {
-            width: 80px;
-            height: 40px;
-            top: 50px;
-            left: -100px;
-            animation-delay: 0s;
         }
-
-        .cloud2 {
-            width: 60px;
-            height: 30px;
-            top: 100px;
-            left: -80px;
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            from { transform: translateX(0); }
-            to { transform: translateX(850px); }
-        }
-
-        h1 {
-            color: #FF1493;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-}
-</style>
+    </style>
 </head>
 <body>
 <div class="container">
@@ -450,34 +240,13 @@ font-weight: bold;
             <div class="wheel-section">🥟 饺子</div>
             <div class="wheel-section">🍲 火锅</div>
         </div>
-<h1>🐷 抓小猪游戏 💕</h1>
-
-<div class="game-container" id="gameContainer">
-    <div class="clouds">
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
-</div>
+    </div>
 
     <button class="spin-button" id="spinButton">🎯 开始转盘</button>
-    <div class="game-info">
-        <div>💖 得分: <span id="score">0</span></div>
-        <div>⏰ 时间: <span id="time">60</span>s</div>
-        <div>⭐ 等级: <span id="level">1</span></div>
-    </div>
 
     <div class="result" id="result">
         点击按钮开始选择吧！
-    <div class="game-over" id="gameOver">
-        <h2>🎉 游戏结束!</h2>
-        <p>💖 最终得分: <span id="finalScore">0</span></p>
-        <p>⭐ 达到等级: <span id="finalLevel">1</span></p>
-        <button class="restart-btn" onclick="restartGame()">🔄 重新开始</button>
-</div>
-</div>
-
-<div class="controls">
-    <button class="start-btn" onclick="startGame()">🎮 开始游戏</button>
-    <p>🖱️ 移动鼠标控制捕网，🎯 点击或靠近小猪来抓住它们！每抓住一只小猪，都会有惊喜哦~ 💕</p>
+    </div>
 </div>
 
 <script>
@@ -555,281 +324,7 @@ font-weight: bold;
             }
             lastTouchEnd = now;
         }, false);
-    let gameActive = false;
-    let score = 0;
-    let timeLeft = 60;
-    let level = 1;
-    let pigs = [];
-    let mouseX = 0;
-    let mouseY = 0;
-    let gameTimer;
-    let pigSpawnTimer;
-
-    // 女生爱听的话数组 💕
-    const loveMessages = [
-        "哇！你好厉害呀~ 💕 抓小猪都这么棒！",
-        "天哪！你真是个捕猪高手呢！✨",
-        "嘻嘻，被你抓到啦~ 好开心！😊",
-        "你真温柔，连小猪都被你迷住了~ 🥰",
-        "哇塞！你的反应好快哦！🌟",
-        "亲爱的，你太棒了！我好喜欢！💖",
-        "你抓小猪的样子真帅/美！😘",
-        "哎呀，被你抓到了呢~ 好害羞~ 😊",
-        "你真有魅力，连小猪都逃不过你的手掌心！✨",
-        "哇！你好厉害，我都要崇拜你啦！👑",
-        "你抓小猪的技术简直满分！💯",
-        "亲爱的，你真是太优秀了！🥳",
-        "嘻嘻，你抓到我的小心心啦~ 💝",
-        "你真是个温柔又强大的人呢！🌸",
-        "哇！你让我好惊喜哦！🎉",
-        "你抓小猪的样子好迷人！😍",
-        "亲爱的，你是最棒的！💪",
-        "你真可爱，连小猪都喜欢你！🐷💕",
-        "哇！你太厉害了，我要给你点赞！👍",
-        "你抓小猪的技术简直像魔法一样！🪄"
-    ];
-
-    const gameContainer = document.getElementById('gameContainer');
-    const scoreElement = document.getElementById('score');
-    const timeElement = document.getElementById('time');
-    const levelElement = document.getElementById('level');
-    const gameOverElement = document.getElementById('gameOver');
-    const finalScoreElement = document.getElementById('finalScore');
-    const finalLevelElement = document.getElementById('finalLevel');
-
-    // 鼠标移动事件
-    gameContainer.addEventListener('mousemove', (e) => {
-        const rect = gameContainer.getBoundingClientRect();
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top;
-
-        updateNetPosition();
-});
-
-    // 更新捕网位置
-    function updateNetPosition() {
-        let net = document.querySelector('.net');
-        if (!net) {
-            net = document.createElement('div');
-            net.className = 'net';
-            gameContainer.appendChild(net);
-        }
-
-        net.style.left = (mouseX - 40) + 'px';
-        net.style.top = (mouseY - 40) + 'px';
-    }
-
-    // 开始游戏
-    function startGame() {
-        if (gameActive) return;
-
-        gameActive = true;
-        score = 0;
-        timeLeft = 60;
-        level = 1;
-        pigs = [];
-
-        updateDisplay();
-        gameOverElement.style.display = 'none';
-
-        // 清除现有小猪
-        document.querySelectorAll('.pig, .caught-pig, .love-message').forEach(el => el.remove());
-
-        // 开始游戏计时器
-        gameTimer = setInterval(() => {
-            timeLeft--;
-            updateDisplay();
-
-            if (timeLeft <= 0) {
-                endGame();
-            }
-        }, 1000);
-
-        // 开始生成小猪
-        spawnPig();
-        pigSpawnTimer = setInterval(spawnPig, getSpawnInterval());
-    }
-
-    // 获取小猪生成间隔（根据等级调整）
-    function getSpawnInterval() {
-        return Math.max(1000 - (level - 1) * 150, 300);
-    }
-
-    // 生成小猪
-    function spawnPig() {
-        if (!gameActive) return;
-
-        const pig = document.createElement('div');
-        pig.className = 'pig';
-
-        // 随机位置（避免太靠近边缘和鼠标初始位置）
-        let x, y;
-        do {
-            x = Math.random() * (gameContainer.offsetWidth - 80) + 10;
-            y = Math.random() * (gameContainer.offsetHeight - 80) + 10;
-        } while (Math.abs(x - mouseX) < 100 && Math.abs(y - mouseY) < 100);
-
-        pig.style.left = x + 'px';
-        pig.style.top = y + 'px';
-
-        // 小猪行为
-        let pigX = x;
-        let pigY = y;
-        let vx = (Math.random() - 0.5) * 2;
-        let vy = (Math.random() - 0.5) * 2;
-        let speed = 0.5 + level * 0.2;
-
-        const movePig = () => {
-            if (!gameActive || !pig.parentNode) return;
-
-            // 简单AI：远离鼠标
-            const dx = pigX - mouseX;
-            const dy = pigY - mouseY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 150) {
-                vx += (dx / distance) * 0.1;
-                vy += (dy / distance) * 0.1;
-            }
-
-            // 限制速度
-            vx = Math.max(-speed, Math.min(speed, vx));
-            vy = Math.max(-speed, Math.min(speed, vy));
-
-            pigX += vx;
-            pigY += vy;
-
-            // 边界检测
-            if (pigX < 0 || pigX > gameContainer.offsetWidth - 60) vx *= -1;
-            if (pigY < 0 || pigY > gameContainer.offsetHeight - 60) vy *= -1;
-
-            pigX = Math.max(0, Math.min(gameContainer.offsetWidth - 60, pigX));
-            pigY = Math.max(0, Math.min(gameContainer.offsetHeight - 60, pigY));
-
-            pig.style.left = pigX + 'px';
-            pig.style.top = pigY + 'px';
-
-            // 检测是否被抓住
-            const pigCenterX = pigX + 30;
-            const pigCenterY = pigY + 30;
-            const distanceToMouse = Math.sqrt(
-                Math.pow(pigCenterX - mouseX, 2) + Math.pow(pigCenterY - mouseY, 2)
-            );
-
-            if (distanceToMouse < 50) {
-                catchPig(pig);
-                return;
-            }
-
-            requestAnimationFrame(movePig);
-        };
-
-        pig.addEventListener('click', () => {
-            if (gameActive && pig.parentNode) {
-                catchPig(pig);
-            }
-        });
-
-        pig.moveFunction = movePig;
-        gameContainer.appendChild(pig);
-        pigs.push(pig);
-
-        movePig();
-    }
-
-    // 抓住小猪
-    function catchPig(pig) {
-        if (!gameActive || !pig.parentNode) return;
-
-        // 显示捕网效果
-        const net = document.querySelector('.net');
-        if (net) {
-            net.classList.add('active');
-            setTimeout(() => net.classList.remove('active'), 300);
-        }
-
-        // 增加分数
-        score += 10 * level;
-
-        // 显示女生爱听的话 💕
-        showLoveMessage();
-
-        // 创建被抓住的动画效果
-        const caughtPig = document.createElement('div');
-        caughtPig.className = 'caught-pig';
-        caughtPig.style.left = pig.style.left;
-        caughtPig.style.top = pig.style.top;
-        gameContainer.appendChild(caughtPig);
-
-        // 移除原小猪
-        pig.remove();
-
-        // 移除动画元素
-        setTimeout(() => caughtPig.remove(), 1000);
-
-        // 从数组中移除
-        const index = pigs.indexOf(pig);
-        if (index > -1) {
-            pigs.splice(index, 1);
-        }
-
-        // 检查升级
-        const newLevel = Math.floor(score / 100) + 1;
-        if (newLevel > level) {
-            level = newLevel;
-            // 减少生成间隔，增加难度
-            clearInterval(pigSpawnTimer);
-            pigSpawnTimer = setInterval(spawnPig, getSpawnInterval());
-        }
-
-        updateDisplay();
-    }
-
-    // 显示女生爱听的话
-    function showLoveMessage() {
-        const message = loveMessages[Math.floor(Math.random() * loveMessages.length)];
-        const messageEl = document.createElement('div');
-        messageEl.className = 'love-message';
-        messageEl.textContent = message;
-        gameContainer.appendChild(messageEl);
-
-        // 3秒后自动移除
-        setTimeout(() => {
-            if (messageEl.parentNode) {
-                messageEl.remove();
-            }
-        }, 3000);
-    }
-
-    // 更新显示
-    function updateDisplay() {
-        scoreElement.textContent = score;
-        timeElement.textContent = timeLeft;
-        levelElement.textContent = level;
-    }
-
-    // 结束游戏
-    function endGame() {
-        gameActive = false;
-        clearInterval(gameTimer);
-        clearInterval(pigSpawnTimer);
-
-        // 清除所有小猪和消息
-        document.querySelectorAll('.pig, .caught-pig, .love-message').forEach(el => el.remove());
-
-        // 显示游戏结束界面
-        finalScoreElement.textContent = score;
-        finalLevelElement.textContent = level;
-        gameOverElement.style.display = 'block';
-    }
-
-    // 重新开始游戏
-    function restartGame() {
-        startGame();
-    }
-
-    // 初始化
-    updateDisplay();
+    });
 </script>
 </body>
 </html>
