@@ -2,329 +2,185 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>中午吃什么？转盘选择器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>十二月祝福</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Microsoft YaHei', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 40px 20px;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
-            color: white;
-            overflow-x: hidden;
         }
 
-        .container {
+        .card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 25px;
+            padding: 60px 40px;
             text-align: center;
-            max-width: 350px;
-            width: 100%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            max-width: 500px;
+            animation: fadeIn 1.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        .emoji {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
         }
 
         h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 25px;
-        }
-
-        .wheel-container {
+            color: #2d3436;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            font-weight: 300;
             position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 0 auto 25px;
+            z-index: 2;
         }
 
-        .wheel {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+        .message {
+            color: #636e72;
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 30px;
             position: relative;
-            overflow: hidden;
-            border: 6px solid white;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            transition: transform 3s cubic-bezier(0.23, 1, 0.32, 1);
-            will-change: transform;
+            z-index: 2;
         }
 
-        .wheel-section {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: 100% 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            text-align: center;
-            padding: 8px 4px;
-            line-height: 1.2;
-            word-break: break-all;
+        .simple-wish {
+            background: rgba(255,255,255,0.7);
+            border-left: 4px solid #e17055;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 15px 15px 0;
+            position: relative;
+            z-index: 2;
         }
 
-        .wheel-section:nth-child(1) { background: #FF6B6B; transform: rotate(0deg); }
-        .wheel-section:nth-child(2) { background: #4ECDC4; transform: rotate(24deg); }
-        .wheel-section:nth-child(3) { background: #45B7D1; transform: rotate(48deg); }
-        .wheel-section:nth-child(4) { background: #96CEB4; transform: rotate(72deg); }
-        .wheel-section:nth-child(5) { background: #FFEAA7; color: #333; transform: rotate(96deg); }
-        .wheel-section:nth-child(6) { background: #DDA0DD; transform: rotate(120deg); }
-        .wheel-section:nth-child(7) { background: #98D8C8; transform: rotate(144deg); }
-        .wheel-section:nth-child(8) { background: #F7DC6F; color: #333; transform: rotate(168deg); }
-        .wheel-section:nth-child(9) { background: #BB8FCE; transform: rotate(192deg); }
-        .wheel-section:nth-child(10) { background: #85C1E9; transform: rotate(216deg); }
-        .wheel-section:nth-child(11) { background: #F8C471; color: #333; transform: rotate(240deg); }
-        .wheel-section:nth-child(12) { background: #82E0AA; transform: rotate(264deg); }
-        .wheel-section:nth-child(13) { background: #F1948A; transform: rotate(288deg); }
-        .wheel-section:nth-child(14) { background: #85C0F9; transform: rotate(312deg); }
-        .wheel-section:nth-child(15) { background: #F9E79F; color: #333; transform: rotate(336deg); }
-
-        .pointer {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 24px solid #FFD700;
-            z-index: 10;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        .wish-text {
+            color: #2d3436;
+            font-size: 1.2em;
+            margin: 0;
+            line-height: 1.6;
         }
 
-        .spin-button {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
-            margin-bottom: 20px;
-            touch-action: manipulation;
-            -webkit-appearance: none;
-            appearance: none;
-            outline: none;
+        .signature {
+            color: #6c5ce7;
+            font-size: 1.1em;
+            margin-top: 40px;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
         }
 
-        .spin-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
-
-        .spin-button:active {
-            transform: translateY(0);
-        }
-
-        .spin-button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .result {
-            font-size: 1.2rem;
-            font-weight: bold;
-            background: rgba(255,255,255,0.1);
-            padding: 12px 20px;
-            border-radius: 18px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            min-height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 10px;
-            word-break: break-word;
-        }
-
-        .result.show {
-            animation: bounce 0.6s ease;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-8px);
-            }
-            60% {
-                transform: translateY(-4px);
-            }
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
-        .food-emoji {
-            font-size: 1.4em;
-            margin-right: 6px;
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
         }
 
-        /* 移动端特殊优化 */
-        @media (max-width: 400px) {
-            .wheel-container {
-                width: 250px;
-                height: 250px;
-            }
-
-            h1 {
-                font-size: 1.6rem;
-            }
-
-            .wheel-section {
-                font-size: 10px;
-                padding: 6px 3px;
-            }
-
-            .spin-button {
-                padding: 12px 24px;
-                font-size: 0.95rem;
-            }
+        .snowflake {
+            position: fixed;
+            color: rgba(255,255,255,0.9);
+            font-size: 2em;
+            animation: fall linear infinite;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
 
-        @media (max-width: 320px) {
-            .wheel-container {
-                width: 220px;
-                height: 220px;
+        @keyframes fall {
+            0% { 
+                transform: translateY(-100vh) rotate(0deg); 
+                opacity: 1;
             }
-
-            .wheel-section {
-                font-size: 9px;
-                padding: 5px 2px;
+            100% { 
+                transform: translateY(100vh) rotate(360deg); 
+                opacity: 0.3;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>🍽️ 中午吃什么？</h1>
-    <p class="subtitle">转动转盘，让命运决定你的午餐！</p>
+    <div class="card">
+        <div class="emoji">❄️</div>
+        <h1>十二月安好</h1>
+        
+        <div class="message">
+            时间悄悄走到了十二月<br>
+            一年也快要过去了
+        </div>
 
-    <div class="wheel-container">
-        <div class="pointer"></div>
-        <div class="wheel" id="wheel">
-            <div class="wheel-section">🍜 兰州拉面</div>
-            <div class="wheel-section">🥟 小笼包</div>
-            <div class="wheel-section">🍛 盖浇饭</div>
-            <div class="wheel-section">🍱 便当</div>
-            <div class="wheel-section">🌮 煎饼果子</div>
-            <div class="wheel-section">🍕 披萨</div>
-            <div class="wheel-section">🥗 沙拉</div>
-            <div class="wheel-section">🍔 汉堡</div>
-            <div class="wheel-section">🍜 刀削面</div>
-            <div class="wheel-section">🥘 麻辣烫</div>
-            <div class="wheel-section">🍣 寿司</div>
-            <div class="wheel-section">🥙 肉夹馍</div>
-            <div class="wheel-section">🍝 意面</div>
-            <div class="wheel-section">🥟 饺子</div>
-            <div class="wheel-section">🍲 火锅</div>
+        <div class="simple-wish">
+            <p class="wish-text">
+                🌟 祝你十二月快乐<br>
+                🌟 一切顺利<br>
+                🌟 平安健康
+            </p>
+        </div>
+
+        <div class="message">
+            愿这个冬天的你<br>
+            每天都有小小的开心<br>
+            遇到的事情都顺心如意
+        </div>
+
+        <div class="signature">
+            — 愿你安好
         </div>
     </div>
 
-    <button class="spin-button" id="spinButton">🎯 开始转盘</button>
-
-    <div class="result" id="result">
-        点击按钮开始选择吧！
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const wheel = document.getElementById('wheel');
-        const spinButton = document.getElementById('spinButton');
-        const result = document.getElementById('result');
-
-        const foods = [
-            { name: '兰州拉面', emoji: '🍜' },
-            { name: '小笼包', emoji: '🥟' },
-            { name: '盖浇饭', emoji: '🍛' },
-            { name: '便当', emoji: '🍱' },
-            { name: '煎饼果子', emoji: '🌮' },
-            { name: '披萨', emoji: '🍕' },
-            { name: '沙拉', emoji: '🥗' },
-            { name: '汉堡', emoji: '🍔' },
-            { name: '刀削面', emoji: '🍜' },
-            { name: '麻辣烫', emoji: '🥘' },
-            { name: '寿司', emoji: '🍣' },
-            { name: '肉夹馍', emoji: '🥙' },
-            { name: '意面', emoji: '🍝' },
-            { name: '饺子', emoji: '🥟' },
-            { name: '火锅', emoji: '🍲' }
-        ];
-
-        let isSpinning = false;
-
-        // 使用 touchstart 和 click 双重事件确保移动端兼容
-        function handleSpin(event) {
-            event.preventDefault();
-            if (isSpinning) return;
-
-            isSpinning = true;
-            spinButton.disabled = true;
-            spinButton.textContent = '🌀 转盘中...';
-            result.classList.remove('show');
-            result.textContent = '转盘转动中...';
-
-            // 随机选择食物
-            const randomIndex = Math.floor(Math.random() * foods.length);
-            const selectedFood = foods[randomIndex];
-
-            // 计算旋转角度 - 简化版，15个扇形每个24度
-            const sectionAngle = 24; // 360/15 = 24度
-            const targetAngle = randomIndex * sectionAngle + (sectionAngle / 2);
-            const spins = 3 + Math.random() * 3; // 3-6圈
-            const totalRotation = spins * 360 + (360 - targetAngle);
-
-            wheel.style.transform = `rotate(${totalRotation}deg)`;
+    <script>
+        // 创建更大的雪花
+        function createSnowflake() {
+            const snowflakes = ['❄️', '❅', '❆', '✻', '✼'];
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 4 + 3 + 's';
+            snowflake.style.fontSize = (Math.random() * 1.5 + 1.5) + 'em';
+            document.body.appendChild(snowflake);
 
             setTimeout(() => {
-                isSpinning = false;
-                spinButton.disabled = false;
-                spinButton.textContent = '🎯 再转一次';
-
-                result.innerHTML = `
-                        <span class="food-emoji">${selectedFood.emoji}</span>
-                        今天就吃：${selectedFood.name}！
-                    `;
-                result.classList.add('show');
-            }, 3000);
+                snowflake.remove();
+            }, 7000);
         }
 
-        // 绑定事件 - 同时支持点击和触摸
-        spinButton.addEventListener('click', handleSpin);
-        spinButton.addEventListener('touchstart', handleSpin, { passive: false });
-
-        // 防止双击缩放
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function (event) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-    });
-</script>
+        // 创建更多雪花
+        setInterval(createSnowflake, 500);
+        
+        // 页面加载时立即创建一些雪花
+        for(let i = 0; i < 10; i++) {
+            setTimeout(createSnowflake, i * 200);
+        }
+    </script>
 </body>
 </html>
